@@ -9,7 +9,7 @@
       <el-form
         ref="loginFormRef"
         :model="loginForm"
-        :rules="loginFormRules"
+        :rules="loginFormRules"  
         label-width="0px"
         class="login_form"
       >
@@ -44,8 +44,8 @@ export default {
     return {
       //这是登录表单的数据绑定对象
       loginForm: {
-        username: 'zs',
-        password: '123'
+        username: 'admin',
+        password: '123456'
       },
       //真是表单的验证
       loginFormRules: {
@@ -69,18 +69,21 @@ export default {
     },
     //登录的验证
     login() {
-      // this.$refs.loginFormRef.validate(async valid=>{
-      //     //console.log(valid);
-      //     if(!valid) return 0;
-      //     var {data : res} = await this.axios.post('/login',this.loginForm);
-      //     console.log(res);
-      //     if(res.meta.status !== 200) return this.$message.error('登录失败！！！');
-      //     this.$message.success('登录成功！！！');
-      //     //登录成功后，将token保存在sessionstorage中
-      //     window.sessionStorage.setItem('token',res.data.token);
-      //     this.$router.push('/home');
-      // })
-      this.$router.push('/home')
+      this.$refs.loginFormRef.validate(async valid=>{
+          //console.log(valid);
+          if(!valid) return 0;
+          //请求数据
+          var {data : res} = await this.axios.post('/login',this.loginForm);
+          console.log(res);
+          //请求失败
+          if(res.meta.status !== 200) return this.$message.error('登录失败！！！');
+          //请求成功
+          this.$message.success('登录成功！！！');
+          //登录成功后，将token保存在sessionstorage中
+          window.sessionStorage.setItem('token',res.data.token);
+          //跳转到home页面
+          this.$router.push('/home');
+      })
     }
   }
 }
