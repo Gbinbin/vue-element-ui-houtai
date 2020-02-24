@@ -18,7 +18,7 @@
         <el-menu
           unique-opened
           router
-          :default-active="activePath"
+          :default-active="$route.path"
           :collapse-transition="false"
           :collapse="iscollapse"
           background-color="#333744"
