@@ -266,9 +266,9 @@ export default {
                 if(!valid) return;
                 //可以发起添加用户的网络请求
                 this.axios.post('users',this.addForm).then(res=>{
-                    console.log(res)
+                    //console.log(res)
                     if(res.status !== 201){
-                        this.$message.error('添加用户失败.')
+                        return this.$message.error('添加用户失败.')
                     }
                     this.$message.success('添加用户成功.');
                     //隐藏添加用户的对话框

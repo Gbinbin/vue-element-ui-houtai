@@ -5,8 +5,9 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import './assets/css/global.css'
+import TreeTable from 'vue-table-with-tree-grid'
 
-import {Breadcrumb,Button,Form,FormItem,Input,Message,Header,Container,Aside,Main,Menu,Submenu,MenuItem,BreadcrumbItem,Card,Row,Col,Table,TableColumn,Switch,Tooltip,Pagination,Dialog,MessageBox,Tag,Tree,Select,Option} from 'element-ui'
+import {Breadcrumb,Button,Form,FormItem,Input,Message,Header,Container,Aside,Main,Menu,Submenu,MenuItem,BreadcrumbItem,Card,Row,Col,Table,TableColumn,Switch,Tooltip,Pagination,Dialog,MessageBox,Tag,Tree,Select,Option,Cascader} from 'element-ui'
 
 Vue.use(ElementUI);
 Vue.use(Button)
@@ -35,9 +36,12 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Cascader)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
+//注册
+Vue.component('tree-table',TreeTable)
 
 // axios.defaults.baseURL = 'http://127.0.0.1：8888/api/private/v1/'
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
