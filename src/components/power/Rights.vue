@@ -48,9 +48,7 @@ export default {
                 this.rightsList = res.data.data;
             })
         }
-    }
-
-    
+    } 
 }
 </script>
 <style lang="less" scoped>

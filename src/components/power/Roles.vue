@@ -11,7 +11,7 @@
             <!-- 添加角色按钮区域 -->
             <el-row>
                 <el-col>
-                    <el-button type="primary">添加角色</el-button>
+                    <el-button type="primary" @click="showAddRoles">添加角色</el-button>
                 </el-col>
             </el-row>
             <!-- 角色列表区域 -->
@@ -87,6 +87,25 @@
                 <el-button type="primary" @click="editRoleInfo">确 定</el-button>
             </span>
         </el-dialog>
+        <!-- 添加角色对话框 -->
+        <el-dialog
+            title="添加角色"
+            :visible.sync="addRoleDialogVisible"
+            width="50%"
+            @close="addRoleFormClose">
+            <el-form :rules="addRoleFormRule" ref="addRoleFormRef"  :model="addRoleForm" label-width="80px">
+                <el-form-item label="角色名称" prop="roleName">
+                    <el-input v-model="addRoleForm.roleName"></el-input>
+                </el-form-item>
+                <el-form-item label="角色描述" prop="roleDesc">
+                    <el-input v-model="addRoleForm.roleDesc"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addRoleDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="addRoles">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -94,6 +113,23 @@ export default {
     name: 'Roles',
     data(){
         return {
+            //添加角色弹出框的判断信息规则
+            addRoleFormRule: {
+                roleName: [
+                    { required: true, message: '请输入角色名称', trigger: 'blur' }
+                ],
+                roleDesc: [
+                    { required: true, message: '请输入角色描述', trigger: 'blur' }
+                ]
+
+            },
+            //添加角色的数据
+            addRoleForm: {
+                roleName: '',
+                roleDesc: ''
+            },
+            //添加角色对话框的现示与隐藏
+            addRoleDialogVisible: false,
             rolesList: [],
             editDialogVisible: false,
             editForm: {},
@@ -116,6 +152,29 @@ export default {
         this.getRolesList();
     },
     methods: {
+        //添加角色对话框的重置
+        addRoleFormClose(){
+            this.$refs.addRoleFormRef.resetFields();
+        },
+        //添加角色的方法
+        addRoles(){
+            this.$refs.addRoleFormRef.validate(valid=>{
+                if(!valid) return;
+                this.axios.post('roles',this.addRoleForm).then(res=>{
+                    if(res.data.meta.status !== 201){
+                        return this.$message.error('添加角色失败')
+                    }
+                    this.$message.success('添加角色成功')
+                    this.getRolesList();
+                    this.addRoleDialogVisible = false
+                })
+            })
+        },
+        //显示添加角色弹出框
+        showAddRoles(){
+            this.addRoleDialogVisible = true
+
+        },
         //获取数据方法
         getRolesList(){
             this.axios.get('roles').then(res=>{
