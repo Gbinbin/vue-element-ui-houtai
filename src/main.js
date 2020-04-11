@@ -63,6 +63,7 @@ axios.interceptors.request.use(config=>{
     //console.log(config)
     return config;
 })
+
 //全局时间过滤器
 Vue.filter('dateFormat',function(original){
   const dt = new Date(original)
@@ -77,7 +78,15 @@ Vue.filter('dateFormat',function(original){
 
   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
 })
-
+// Vue.filter('dataFormat',function(original){
+//   const dt = new DataCue(original)
+//   const y = dt.getFullYear()
+//   const m = dt.getMonth()+1 + ''
+//   const d = dt.getDay() + ''
+//   const hh = dt.getHours() + ''
+//   const mm = dt.getMinutes() + ''
+//   const ss = dt.getSeconds() + ''
+// })
 
 Vue.prototype.axios = axios;
 Vue.config.productionTip = false

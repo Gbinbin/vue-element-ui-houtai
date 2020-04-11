@@ -58,7 +58,7 @@
 export default {
   name: 'list',
   data() {
-    return {
+    return {  //传入的信息
       queryInfo: {
         query: '',
         pagenum: 1,

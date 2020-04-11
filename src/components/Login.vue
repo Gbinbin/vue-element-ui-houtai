@@ -1,7 +1,7 @@
 <template>
   <div class="login_container">
     <div class="login_box">
-      <!-- 投向区域 -->
+      <!-- 头像区域 -->
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="" />
       </div>
@@ -40,7 +40,7 @@
 <script>
 export default {
   name: 'login',
-  data() {
+  data(){
     return {
       //这是登录表单的数据绑定对象
       loginForm: {
